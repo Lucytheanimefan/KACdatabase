@@ -20,10 +20,13 @@ sys.setdefaultencoding('utf-8')
 
 @app.route("/")
 @app.route("/home")
+@app.route("/search")
 def home():
-	return 'hello world'
+	return render_template('search.html')
 
 
+
+'''
 @app.route('/populatedb')
 def populate():
 	global reader
@@ -48,7 +51,7 @@ def populate():
 			'3 interesting things':row[16].decode('latin-1').encode('utf-8'),
 			'Reference':row[17].decode('latin-1').encode('utf-8')
 			})
-
+'''
 
 
 if __name__ == "__main__":

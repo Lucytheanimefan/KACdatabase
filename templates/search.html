@@ -1,0 +1,67 @@
+{% extends "layout.html" %} {% block body %}
+<form>
+    <div class="row">
+        <div class="input-field col s12">
+            <input id="search" type="text" class="validate">
+            <label for="search">Search</label>
+        </div>
+    </div>
+    <div class='row'>
+        <div class="input-field col s12">
+            <select id="sortBy">
+                <option value="" disabled selected>Sort By</option>
+                <option value="firstname">First Name</option>
+                <option value="lastname">Last Name</option>
+                <option value="year">Year</option>
+                <option value="location">Location Preference</option>
+                <option value="school">School</option>
+            </select>
+        </div>
+    </div>
+    <div class="checkboxes">
+        <p>
+            <input type="checkbox" id="test5" />
+            <label for="test5">Red</label>
+        </p>
+        <p>
+            <input type="checkbox" id="test6" checked="checked" />
+            <label for="test6">Yellow</label>
+        </p>
+        <p>
+            <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" />
+            <label for="filled-in-box">Filled in</label>
+        </p>
+        <p>
+            <input type="checkbox" id="indeterminate-checkbox" />
+            <label for="indeterminate-checkbox">Indeterminate Style</label>
+        </p>
+        <p>
+            <input type="checkbox" id="test7" checked="checked" disabled="disabled" />
+            <label for="test7">Green</label>
+        </p>
+        <p>
+            <input type="checkbox" id="test8" disabled="disabled" />
+            <label for="test8">Brown</label>
+        </p>
+    </div>
+    <br>
+    <div class="row">
+        <button class="btn waves-effect waves-light" id="go" type="submit" name="action">Go
+            <i class="material-icons right"></i>
+        </button>
+    </div>
+</form>
+<!-- update resume
+<form action="#">
+    <div class="file-field input-field">
+      <div class="btn">
+        <span>File</span>
+        <input type="file">
+      </div>
+      <div class="file-path-wrapper">
+        <input class="file-path validate" type="text">
+      </div>
+    </div>
+  </form>
+  -->
+{% endblock %}
