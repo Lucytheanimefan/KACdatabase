@@ -65,11 +65,38 @@ function getpostdata() {
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         success: function(response) {
-        	spinner.stop();
+            spinner.stop();
             console.log('ajax success');
             var data = response["result"];
-            console.log(data);
+            var newdata = []
+            for (var i = 1; i < data.length; i++) {
+                newdata.push(JSON.parse(data[i]));
+            }
+			console.log(newdata);
+            //sort the data alphabetically (for now)
+            sortByKey(newdata, "Name", "lastname");
+            console.log('new sorted data');
+            console.log(newdata);
 
         }
     });
 }
+
+function sortByKey(array, key, key2) {
+    return array.sort(function(a, b) {
+        var x = a[key][key2];
+        var y = b[key][key2];
+
+        if (typeof x == "string")
+        {
+            x = x.toLowerCase(); 
+        }
+        if (typeof y == "string")
+        {
+            y = y.toLowerCase();
+        }
+
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    });
+}
+
