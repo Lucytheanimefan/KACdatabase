@@ -7,7 +7,7 @@
         </div>
     </div>
     <div class='row'>
-        <div class="input-field col s12">
+        <div class="input-field col s6">
             <select id="sortBy">
                 <option value="" disabled selected>Sort By</option>
                 <option value="firstname">First Name</option>
@@ -17,32 +17,71 @@
                 <option value="school">School</option>
             </select>
         </div>
+
+        <div class="input-field col s6">
+            <select id="sortByYear">
+                <option value="" disabled selected>Sort By Year</option>
+                <option value="2021">2021</option>
+                <option value="2020">2020</option>
+                <option value="2019">2019</option>
+                <option value="2018">2018</option>
+            </select>
+        </div>
+
     </div>
     <div class="checkboxes">
-        <p>
-            <input type="checkbox" id="test5" />
-            <label for="test5">Red</label>
-        </p>
-        <p>
-            <input type="checkbox" id="test6" checked="checked" />
-            <label for="test6">Yellow</label>
-        </p>
-        <p>
-            <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" />
-            <label for="filled-in-box">Filled in</label>
-        </p>
-        <p>
-            <input type="checkbox" id="indeterminate-checkbox" />
-            <label for="indeterminate-checkbox">Indeterminate Style</label>
-        </p>
-        <p>
-            <input type="checkbox" id="test7" checked="checked" disabled="disabled" />
-            <label for="test7">Green</label>
-        </p>
-        <p>
-            <input type="checkbox" id="test8" disabled="disabled" />
-            <label for="test8">Brown</label>
-        </p>
+        <div class='col-md-3'>
+            <p>
+                <input type="checkbox" id="frontend" />
+                <label for="test5">Front-End</label>
+            </p>
+            <p>
+                <input type="checkbox" id="backend" />
+                <label for="test6">Back-End</label>
+            </p>
+            <p>
+                <input type="checkbox" class="filled-in" id="mobile" />
+                <label for="filled-in-box">Mobile</label>
+            </p>
+            <p>
+                <input type="checkbox" id="database" />
+                <label for="indeterminate-checkbox">Database</label>
+            </p>
+            <p>
+                <input type="checkbox" id="testing_qa" />
+                <label for="test7">Testing/QA</label>
+            </p>
+            <p>
+                <input type="checkbox" id="ui_ux" />
+                <label for="test8">UI/UX</label>
+            </p>
+        </div>
+        <div class='col-md-3'>
+            <p>
+                <input type="checkbox" id="3dprinting" />
+                <label for="test8">3D Printing</label>
+            </p>
+            <p>
+                <input type="checkbox" id="hardware" />
+                <label for="test8">Hardware</label>
+            </p>
+            <p>
+                <input type="checkbox" id="fintech" />
+                <label for="test8">Fintech</label>
+            </p>
+            <p>
+                <input type="checkbox" id="cyber_security" />
+                <label for="test8">Cyber Security</label>
+            </p>
+            <p>
+                <input type="checkbox" id="AI" />
+                <label for="test8">Artificial Intelligence</label>
+            </p>
+            <p>
+                <input type="checkbox" id="robotics" />
+                <label for="test8">Robotics</label>
+            </p>
+        </div>
     </div>
     <br>
 </form>

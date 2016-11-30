@@ -7,8 +7,9 @@ $(document).ready(function() {
 
 $('#go').click(function() {
     var sortBy = $('#sortBy').val();
-    console.log(sortBy);
+    var sortByYear = $('#sortByYear').val();
     spinner = new Spinner(opts).spin(target);
+    console.log(sortByYear);
     getpostdata();
 })
 
@@ -57,7 +58,7 @@ var opts = {
 
 var target = document.getElementById('results')
 
-function getpostdata() {
+function getpostdata(sortdata=null) {
     $.ajax({
         type: 'POST',
         url: '/search',
