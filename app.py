@@ -1,13 +1,14 @@
 import os
 from flask import Flask
-from flask import render_template
+from flask import render_template,jsonify
 import csv
 import sys
 import server
 from server import *
 from parser import *
 import sys
-
+import json
+from JSONEncoder import JSONEncoder
 
 app = Flask(__name__)
 
@@ -18,6 +19,7 @@ db = server.get_db()
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
+
 @app.route("/")
 @app.route("/home")
 @app.route("/search")
@@ -25,6 +27,18 @@ def home():
 	return render_template('search.html')
 
 
+@app.route('/search',methods=['POST','GET'])
+def search():
+	global db
+	doc = db.scholarprofiles.find()
+	'''
+	for pro in doc:
+		print type(pro)
+		data.append(dict(pro))
+	'''
+	print '-------------------CURSOR------------'
+	data = [JSONEncoder().encode(prof) for prof in doc]
+	return jsonify(result = data)
 
 '''
 @app.route('/populatedb')
@@ -34,11 +48,12 @@ def populate():
 	for row in reader:
 		db.scholarprofiles.insert({
 			'Email':row[1].decode('latin-1').encode('utf-8'),
-			'Name':row[2].decode('latin-1').encode('utf-8'),
+			'Name':parseName(row[2].decode('latin-1').encode('utf-8')),
 			'Phone':row[3].decode('latin-1').encode('utf-8'),
 			'Unviersity':row[4].decode('latin-1').encode('utf-8'),
 			'Graduation':row[5].decode('latin-1').encode('utf-8'),
 			'Intended Major':row[6].decode('latin-1').encode('utf-8'),
+			'Parsed Intended Major':splitMajorMinor(row[6].decode('latin-1').encode('utf-8')),
 			'Declared Major':row[7].decode('latin-1').encode('utf-8'),
 			'Relevant Coursework':parseToArray(row[8].decode('latin-1').encode('utf-8')),
 			'Interested Areas of Tech':parseToArray(row[9].decode('latin-1').encode('utf-8')),
