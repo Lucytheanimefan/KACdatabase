@@ -8,7 +8,7 @@ $(document).ready(function() {
 $('#go').click(function() {
     var sortBy = $('#sortBy').val();
     console.log(sortBy);
-    var spinner = new Spinner(opts).spin(target);
+    spinner = new Spinner(opts).spin(target);
     getpostdata();
 })
 
@@ -65,6 +65,7 @@ function getpostdata() {
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         success: function(response) {
+        	spinner.stop();
             console.log('ajax success');
             var data = response["result"];
             console.log(data);
