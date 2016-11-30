@@ -58,7 +58,7 @@ var opts = {
 
 var target = document.getElementById('results')
 
-function getpostdata(sortdata=null) {
+function getpostdata(sortdata = null) {
     $.ajax({
         type: 'POST',
         url: '/search',
@@ -73,11 +73,12 @@ function getpostdata(sortdata=null) {
             for (var i = 1; i < data.length; i++) {
                 newdata.push(JSON.parse(data[i]));
             }
-			console.log(newdata);
+            console.log(newdata);
             //sort the data alphabetically (for now)
             sortByKey(newdata, "Name", "lastname");
             console.log('new sorted data');
             console.log(newdata);
+            populateData(newdata);
 
         }
     });
@@ -88,12 +89,10 @@ function sortByKey(array, key, key2) {
         var x = a[key][key2];
         var y = b[key][key2];
 
-        if (typeof x == "string")
-        {
-            x = x.toLowerCase(); 
+        if (typeof x == "string") {
+            x = x.toLowerCase();
         }
-        if (typeof y == "string")
-        {
+        if (typeof y == "string") {
             y = y.toLowerCase();
         }
 
@@ -101,3 +100,9 @@ function sortByKey(array, key, key2) {
     });
 }
 
+
+function populateData(data) {
+    for (var i = 0; i < data.length; i++) {
+        $('#results').html($('#results').html()+"<div>"+data[i]["Name"]["lastname"]+","+data[i]["Name"]["firstname"]+"</div>");
+    }
+}
