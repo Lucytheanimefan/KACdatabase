@@ -17,11 +17,7 @@ def searchWithQuery(year):
 	global db
 	lasttwo = year[-2:]
 	doc = db.scholarprofiles.find(yearQuery(year))
-	'''
-	for pro in doc:
-		print type(pro)
-		data.append(dict(pro))
-	'''
+
 	print '-------------------CURSOR------------'
 	data = [JSONEncoder().encode(prof) for prof in doc]
 	print data

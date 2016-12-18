@@ -124,13 +124,20 @@ function sortByKey(array, key, key2) {
 
 
 function populateData(data) {
-    console.log("Data length: "+data.length);
+    console.log("Data length: " + data.length);
+    var nameInfo="";
     for (var i = 0; i < data.length; i++) {
-        $('#results').html($('#results').html() + "<div class='profile'>");
-        for (var key in data[i]) {
-            $('#results').html($('#results').html() + key + ":" + data[i][key] + "<br>");
+       var studentdata = "<div class='profile'>";
+       for (var key in data[i]) {
+            if (key == "Name") {
+                nameInfo = "<div class='name'>"+data[i]["Name"]["lastname"] + "," + data[i]["Name"]["firstname"]+"</div>";
+            } else {
+                studentdata=studentdata + "<span class='title'>"+
+                    key + "</span>: " + data[i][key] + "<br>";
+            }
         }
-        $('#results').html($('#results').html() + "</div>"); 
+       studentdata=nameInfo + studentdata+"</div>";
+        $('#results').html($('#results').html() +studentdata+ "</div>");
         //$('#results').html($('#results').html() + "<div>" + data[i]["Name"]["lastname"] + "," + data[i]["Name"]["firstname"] + "</div>");
-        }
     }
+}
