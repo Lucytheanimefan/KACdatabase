@@ -7,9 +7,11 @@ db = server.get_db()
 
 def interestQuery(interests):
 	queries = []
+	print interests
 	for interest in interests:
+		print "Interest: "+interest
 		query = {}
-		query["Interested Areas of Industry"] = re.compile(".*"+interest+".*")
+		query["Interested Areas of Industry"] = {"$in":[re.compile("(?:^|\W)"+interest+"(?:$|\W)",re.IGNORECASE)]}
 		queries.append(query)
 	print "Interested areas of industry"
 	print queries
@@ -23,10 +25,12 @@ def query(year, interests=None):
 	query = { "$or": [ { "Graduation": re.compile(".*"+year+".*") }, 
 	{ "Graduation": re.compile(".*"+lasttwo+".*") } ] }
 	'''
-
-	query = {"$and" : [{ "$or": [ { "Graduation": re.compile(".*"+year+".*") }, 
-	{ "Graduation": re.compile(".*"+lasttwo+".*") } ] },
-	{"$or":interestQuery(interests)}]}
+	if len(interests)<=0:
+		query = { "$or": [ { "Graduation": re.compile(".*"+year+".*") }, { "Graduation": re.compile(".*"+lasttwo+".*") } ] }
+	else:
+		query = {"$and" : [{ "$or": [ { "Graduation": re.compile(".*"+year+".*") }, 
+		{ "Graduation": re.compile(".*"+lasttwo+".*") } ] },
+		{"$or":interestQuery(interests)}]}
 	
 	print query
 	return query
