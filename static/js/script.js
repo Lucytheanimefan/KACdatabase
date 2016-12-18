@@ -125,19 +125,29 @@ function sortByKey(array, key, key2) {
 
 function populateData(data) {
     console.log("Data length: " + data.length);
-    var nameInfo="";
+    var nameInfo = "";
+    var totalData = "";
     for (var i = 0; i < data.length; i++) {
-       var studentdata = "<div class='profile'>";
-       for (var key in data[i]) {
-            if (key == "Name") {
-                nameInfo = "<div class='name'>"+data[i]["Name"]["lastname"] + "," + data[i]["Name"]["firstname"]+"</div>";
+        var studentdata = "<div class='profile'>";
+        for (var key in data[i]) {
+            if (key == "_id") {
+                //do nothing
+            } else if (key == "Name") {
+                nameInfo = "<div class='name'>" + data[i]["Name"]["lastname"] + "," + data[i]["Name"]["firstname"] + "</div>";
             } else {
-                studentdata=studentdata + "<span class='title'>"+
-                    key + "</span>: " + data[i][key] + "<br>";
+                studentdata = studentdata + "<h5 class='title'>" +
+                    key + "</h5> " + data[i][key] + "<hr>";
             }
         }
-       studentdata=nameInfo + studentdata+"</div>";
-        $('#results').html($('#results').html() +studentdata+ "</div>");
-        //$('#results').html($('#results').html() + "<div>" + data[i]["Name"]["lastname"] + "," + data[i]["Name"]["firstname"] + "</div>");
+        studentdata = '<li><div class="collapsible-header">' + nameInfo +
+            "</div><div class='collapsible-body'>" +
+            studentdata + "</div></li>";
+
+        totalData = totalData + studentdata;
     }
+    $('#results').html("<ul class='collapsible popout' data-collapsible='accordion'>" +
+        $('#results').html() + totalData + "</ul>");
+
+     $('.collapsible').collapsible();
 }
+
