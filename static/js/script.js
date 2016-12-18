@@ -13,6 +13,23 @@ $('#go').click(function() {
     getpostdata();
 })
 
+/*
+$('input[type="checkbox"]').click(function() {
+    if ($(this).prop("checked") == true) {
+        alert("Checkbox is checked.");
+        $(this).prop("checked", false);
+    } else if ($(this).prop("checked") == false) {
+        alert("Checkbox is unchecked.");
+        $(this).prop("checked", true);
+    }
+});
+*/
+
+/*
+$('.item').click(function() {
+    $(this).toggle(this.checked);
+});
+*/
 
 var opts = {
     lines: 13 // The number of lines to draw
@@ -103,6 +120,6 @@ function sortByKey(array, key, key2) {
 
 function populateData(data) {
     for (var i = 0; i < data.length; i++) {
-        $('#results').html($('#results').html()+"<div>"+data[i]["Name"]["lastname"]+","+data[i]["Name"]["firstname"]+"</div>");
+        $('#results').html($('#results').html() + "<div>" + data[i]["Name"]["lastname"] + "," + data[i]["Name"]["firstname"] + "</div>");
     }
 }
