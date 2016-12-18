@@ -8,6 +8,7 @@ $(document).ready(function() {
 var checkBoxValues = [];
 
 $('#go').click(function() {
+    $("#results").empty();
     var sortBy = $('#sortBy').val();
     var sortByYear = $('#sortByYear').val();
     console.log("sort by: " + sortBy);
