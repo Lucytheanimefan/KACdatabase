@@ -4,7 +4,20 @@ $(document).ready(function() {
     $('select').material_select();
 });
 
-
+var interestMap = {
+    "frontend": "Front-End",
+    "backend": "Back-End",
+    "mobile": "Mobile",
+    "database": "Database",
+    "testing_qa": "Testing/QA",
+    "ui_ux": "UI/UX",
+    "3dprinting": "3D Printing",
+    "hardware": "Hardware",
+    "fintech": "Finance/ FinTech",
+    "cyber_security": "Cyber Security",
+    "AI": "Artificial Intelligence",
+    "robotics":"Robotics"
+}
 var checkBoxValues = [];
 
 $('#go').click(function() {
@@ -14,6 +27,7 @@ $('#go').click(function() {
     console.log("sort by: " + sortBy);
     console.log("sort by year: " + sortByYear);
     getCheckedBoxes();
+    console.log(checkBoxValues)
     spinner = new Spinner(opts).spin(target);
     console.log(sortByYear);
     var query = createQuery(sortBy, sortByYear, checkBoxValues);
@@ -26,7 +40,7 @@ function getCheckedBoxes() {
     checkBoxValues = [];
     $(".check").each(function() {
         if ($(this).prop('checked')) {
-            checkBoxValues.push($(this).val());
+            checkBoxValues.push(interestMap[$(this).val()]);
         }
     });
 }
@@ -149,6 +163,5 @@ function populateData(data) {
     $('#results').html("<ul class='collapsible popout' data-collapsible='accordion'>" +
         $('#results').html() + totalData + "</ul>");
 
-     $('.collapsible').collapsible();
+    $('.collapsible').collapsible();
 }
-
