@@ -1,6 +1,6 @@
 import os
 from flask import Flask
-from flask import render_template,jsonify
+from flask import render_template,jsonify, request
 import csv
 import sys
 import server
@@ -9,6 +9,7 @@ from parser import *
 import sys
 import json
 from JSONEncoder import JSONEncoder
+from queries import *
 
 app = Flask(__name__)
 
@@ -30,14 +31,8 @@ def home():
 @app.route('/search',methods=['POST','GET'])
 def search():
 	global db
-	doc = db.scholarprofiles.find()
-	'''
-	for pro in doc:
-		print type(pro)
-		data.append(dict(pro))
-	'''
-	print '-------------------CURSOR------------'
-	data = [JSONEncoder().encode(prof) for prof in doc]
+	print "Search year: "+request.json["year"]
+	data = searchWithQuery(request.json["year"])
 	return jsonify(result = data)
 
 '''

@@ -17,7 +17,7 @@ $('#go').click(function() {
     console.log(sortByYear);
     var query = createQuery(sortBy, sortByYear, checkBoxValues);
     getpostdata(query);
-    
+
     //console.log(checkBoxValues);
 })
 
@@ -96,7 +96,6 @@ function getpostdata(sortdata = {}) {
             for (var i = 1; i < data.length; i++) {
                 newdata.push(JSON.parse(data[i]));
             }
-            console.log(newdata);
             //sort the data alphabetically (for now)
             sortByKey(newdata, "Name", "lastname");
             console.log('new sorted data');
@@ -125,7 +124,13 @@ function sortByKey(array, key, key2) {
 
 
 function populateData(data) {
+    console.log("Data length: "+data.length);
     for (var i = 0; i < data.length; i++) {
-        $('#results').html($('#results').html() + "<div>" + data[i]["Name"]["lastname"] + "," + data[i]["Name"]["firstname"] + "</div>");
+        $('#results').html($('#results').html() + "<div class='profile'>");
+        for (var key in data[i]) {
+            $('#results').html($('#results').html() + key + ":" + data[i][key] + "<br>");
+        }
+        $('#results').html($('#results').html() + "</div>"); 
+        //$('#results').html($('#results').html() + "<div>" + data[i]["Name"]["lastname"] + "," + data[i]["Name"]["firstname"] + "</div>");
+        }
     }
-}
