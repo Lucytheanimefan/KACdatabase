@@ -5,31 +5,35 @@ $(document).ready(function() {
 });
 
 
+var checkBoxValues = [];
+
 $('#go').click(function() {
     var sortBy = $('#sortBy').val();
     var sortByYear = $('#sortByYear').val();
+    console.log("sort by: " + sortBy);
+    console.log("sort by year: " + sortByYear);
+    getCheckedBoxes();
     spinner = new Spinner(opts).spin(target);
     console.log(sortByYear);
-    getpostdata();
+    var query = createQuery(sortBy, sortByYear, checkBoxValues);
+    getpostdata(query);
+    
+    //console.log(checkBoxValues);
 })
 
-/*
-$('input[type="checkbox"]').click(function() {
-    if ($(this).prop("checked") == true) {
-        alert("Checkbox is checked.");
-        $(this).prop("checked", false);
-    } else if ($(this).prop("checked") == false) {
-        alert("Checkbox is unchecked.");
-        $(this).prop("checked", true);
-    }
-});
-*/
+function getCheckedBoxes() {
+    checkBoxValues = [];
+    $(".check").each(function() {
+        if ($(this).prop('checked')) {
+            checkBoxValues.push($(this).val());
+        }
+    });
+}
 
-/*
-$('.item').click(function() {
-    $(this).toggle(this.checked);
-});
-*/
+function createQuery(sortBy, year, interests) {
+    var query = { "sortBy": sortBy, "year": year, "interests": interests };
+    return query;
+}
 
 var opts = {
     lines: 13 // The number of lines to draw
@@ -75,11 +79,13 @@ var opts = {
 
 var target = document.getElementById('results')
 
-function getpostdata(sortdata = null) {
+function getpostdata(sortdata = {}) {
+    console.log("sortdata: ");
+    console.log(sortdata);
     $.ajax({
         type: 'POST',
         url: '/search',
-        data: '',
+        data: JSON.stringify(sortdata),
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         success: function(response) {
