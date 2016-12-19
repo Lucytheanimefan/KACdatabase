@@ -24,6 +24,9 @@ $('#go').click(function() {
     $("#results").empty();
     var sortBy = $('#sortBy').val();
     var sortByYear = $('#sortByYear').val();
+    if (sortByYear == null){
+        sortByYear="";
+    }
     console.log("sort by: " + sortBy);
     console.log("sort by year: " + sortByYear);
     getCheckedBoxes();

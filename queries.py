@@ -20,15 +20,16 @@ def interestQuery(interests):
 def query(year, interests=None):
 	lasttwo = year[-2:]
 	print "LAST TWO: "+lasttwo
-
-	'''
-	query = { "$or": [ { "Graduation": re.compile(".*"+year+".*") }, 
-	{ "Graduation": re.compile(".*"+lasttwo+".*") } ] }
-	'''
-	if len(interests)<=0:
-		query = { "$or": [ { "Graduation": re.compile(".*"+year+".*") }, { "Graduation": re.compile(".*"+lasttwo+".*") } ] }
+	if year is None or len(year)<4:
+		gradRegex = ".*"
 	else:
-		query = {"$and" : [{ "$or": [ { "Graduation": re.compile(".*"+year+".*") }, 
+		gradRegex = ".*"+year+".*"
+
+
+	if len(interests)<=0:
+		query = { "$or": [ { "Graduation": re.compile(gradRegex) }, { "Graduation": re.compile(".*"+lasttwo+".*") } ] }
+	else:
+		query = {"$and" : [{ "$or": [ { "Graduation": re.compile(gradRegex) }, 
 		{ "Graduation": re.compile(".*"+lasttwo+".*") } ] },
 		{"$or":interestQuery(interests)}]}
 	
