@@ -11,9 +11,9 @@ def interestQuery(interests):
 	for interest in interests:
 		print "Interest: "+interest
 		query = {}
-		query["Interested Areas of Industry"] = {"$in":[re.compile("(?:^|\W)"+interest+"(?:$|\W)",re.IGNORECASE)]}
+		query["Interested Areas of Tech"] = {"$in":[re.compile("(?:^|\W)"+interest+"(?:$|\W)",re.IGNORECASE)]}
 		queries.append(query)
-	print "Interested areas of industry"
+	print "Interested Areas of Tech"
 	print queries
 	return queries
 
