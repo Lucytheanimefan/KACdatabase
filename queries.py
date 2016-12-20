@@ -26,14 +26,16 @@ def textSearchQuery(word):
 	else:
 		wordRegex = ".*"+word+".*"
 	query = []
+	queries={}
 	query.append({"Computer programming skillset":re.compile(wordRegex,re.IGNORECASE)})
 	query.append({"Special Skills/Qualifications":re.compile(wordRegex,re.IGNORECASE)})
-	return query
+	query.append({"3 interesting things":re.compile(wordRegex,re.IGNORECASE)})
+	queries["$or"]=query
+	return queries
 
 
 def query(year, interests=None, locationPref=None, word=None):
 	lasttwo = year[-2:]
-	print "LAST TWO: "+lasttwo
 
 	#error checking for empty values
 	if year is None or len(year)<4:
@@ -49,11 +51,12 @@ def query(year, interests=None, locationPref=None, word=None):
 	query = {"$and" : [{ "$or": [ { "Graduation": re.compile(gradRegex) }, 
 	{ "Graduation": re.compile(".*"+lasttwo+".*") } ] },
 	{"$or":listQuery(interests,"Interested Areas of Tech")},
-	{"Location Preference":re.compile(locationPrefRegex)}]}
-
-	query["$and"]=query["$and"]+textSearchQuery(word)
+	{"Location Preference":re.compile(locationPrefRegex)},
+	textSearchQuery(word)]}
 	
+	print "QUERY"
 	print query
+
 	return query
 
 
