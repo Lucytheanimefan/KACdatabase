@@ -29,12 +29,13 @@ $('#go').click(function() {
     if (sortByYear == null){
         sortByYear="";
     }
-    console.log("locationPref: "+locationPref);
+    var word = $("#search").val();
+    console.log("Search word: "+word);
     getCheckedBoxes();
     console.log(checkBoxValues)
     spinner = new Spinner(opts).spin(target);
     console.log(sortByYear);
-    var query = createQuery(sortBy, sortByYear, checkBoxValues, locationPref);
+    var query = createQuery(sortBy, sortByYear, checkBoxValues, locationPref, word);
     getpostdata(query);
 
     //console.log(checkBoxValues);
@@ -49,8 +50,8 @@ function getCheckedBoxes() {
     });
 }
 
-function createQuery(sortBy, year, interests, location) {
-    var query = { "sortBy": sortBy, "year": year, "interests": interests, "location":location };
+function createQuery(sortBy, year, interests, location, word) {
+    var query = { "sortBy": sortBy, "year": year, "interests": interests, "location":location, "word":word };
     return query;
 }
 
@@ -152,7 +153,7 @@ function populateData(data) {
             if (key == "_id") {
                 //do nothing
             } else if (key == "Name") {
-                nameInfo = "<div class='name'>" + data[i]["Name"]["lastname"] + "," + data[i]["Name"]["firstname"] + "</div>";
+                nameInfo = "<div class='name'>" + data[i]["Name"]["lastname"] + ", " + data[i]["Name"]["firstname"] + "</div>";
             } else {
                 studentdata = studentdata + "<h5 class='title'>" +
                     key + "</h5> " + data[i][key] + "<hr>";
