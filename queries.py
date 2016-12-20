@@ -34,7 +34,7 @@ def textSearchQuery(word):
 	return queries
 
 
-def query(year, interests=None, locationPref=None, word=None):
+def query(year, interests=None, locationPref=None, word=None, university = None):
 	lasttwo = year[-2:]
 
 	#error checking for empty values
@@ -48,9 +48,15 @@ def query(year, interests=None, locationPref=None, word=None):
 	else:
 		locationPrefRegex = ".*"+locationPref+".*"
 
+	if university is None or len(university)<1:
+		universityRegex= ".*"
+	else:
+		universityRegex = ".*"+university+".*"
+
 	query = {"$and" : [{ "$or": [ { "Graduation": re.compile(gradRegex) }, 
 	{ "Graduation": re.compile(".*"+lasttwo+".*") } ] },
 	{"$or":listQuery(interests,"Interested Areas of Tech")},
+	{"Unviersity":re.compile(universityRegex)},
 	{"Location Preference":re.compile(locationPrefRegex)},
 	textSearchQuery(word)]}
 	
@@ -60,10 +66,10 @@ def query(year, interests=None, locationPref=None, word=None):
 	return query
 
 
-def searchWithQuery(year, interests, locationPref, word):
+def searchWithQuery(year, interests, locationPref, word, university):
 	global db
 	lasttwo = year[-2:]
-	doc = db.scholarprofiles.find(query(year, interests, locationPref, word))
+	doc = db.scholarprofiles.find(query(year, interests, locationPref, word, university))
 
 	print '-------------------CURSOR------------'
 	data = [JSONEncoder().encode(prof) for prof in doc]

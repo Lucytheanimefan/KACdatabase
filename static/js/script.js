@@ -23,8 +23,10 @@ var checkBoxValues = [];
 $('#go').click(function() {
     $("#results").empty();
     var locationPref="";
+    var university = "";
     var sortBy = $('#sortBy').val();
     var sortByYear = $('#sortByYear').val();
+    university = $("#university").val();
     locationPref = $("#sortByLocation").val();
     if (sortByYear == null){
         sortByYear="";
@@ -35,7 +37,7 @@ $('#go').click(function() {
     console.log(checkBoxValues)
     spinner = new Spinner(opts).spin(target);
     console.log(sortByYear);
-    var query = createQuery(sortBy, sortByYear, checkBoxValues, locationPref, word);
+    var query = createQuery(sortBy, sortByYear, checkBoxValues, locationPref, word, university);
     getpostdata(query);
 
     //console.log(checkBoxValues);
@@ -50,8 +52,8 @@ function getCheckedBoxes() {
     });
 }
 
-function createQuery(sortBy, year, interests, location, word) {
-    var query = { "sortBy": sortBy, "year": year, "interests": interests, "location":location, "word":word };
+function createQuery(sortBy, year, interests, location, word, university) {
+    var query = { "sortBy": sortBy, "year": year, "interests": interests, "location":location, "word":word,"university":university };
     return query;
 }
 
