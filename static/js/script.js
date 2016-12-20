@@ -22,18 +22,19 @@ var checkBoxValues = [];
 
 $('#go').click(function() {
     $("#results").empty();
+    var locationPref="";
     var sortBy = $('#sortBy').val();
     var sortByYear = $('#sortByYear').val();
+    locationPref = $("#sortByLocation").val();
     if (sortByYear == null){
         sortByYear="";
     }
-    console.log("sort by: " + sortBy);
-    console.log("sort by year: " + sortByYear);
+    console.log("locationPref: "+locationPref);
     getCheckedBoxes();
     console.log(checkBoxValues)
     spinner = new Spinner(opts).spin(target);
     console.log(sortByYear);
-    var query = createQuery(sortBy, sortByYear, checkBoxValues);
+    var query = createQuery(sortBy, sortByYear, checkBoxValues, locationPref);
     getpostdata(query);
 
     //console.log(checkBoxValues);
@@ -48,8 +49,8 @@ function getCheckedBoxes() {
     });
 }
 
-function createQuery(sortBy, year, interests) {
-    var query = { "sortBy": sortBy, "year": year, "interests": interests };
+function createQuery(sortBy, year, interests, location) {
+    var query = { "sortBy": sortBy, "year": year, "interests": interests, "location":location };
     return query;
 }
 
