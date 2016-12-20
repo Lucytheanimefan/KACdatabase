@@ -32,7 +32,7 @@ def home():
 def search():
 	global db
 	print "Search year: "+request.json["year"]
-	data = searchWithQuery(request.json["year"], request.json["interests"])
+	data = searchWithQuery(request.json["year"], request.json["interests"], request.json["location"])
 	return jsonify(result = data)
 
 '''
