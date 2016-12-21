@@ -30,6 +30,8 @@ def textSearchQuery(word):
 	query.append({"Computer programming skillset":re.compile(wordRegex,re.IGNORECASE)})
 	query.append({"Special Skills/Qualifications":re.compile(wordRegex,re.IGNORECASE)})
 	query.append({"3 interesting things":re.compile(wordRegex,re.IGNORECASE)})
+	query.append({"Intended Major":re.compile(wordRegex,re.IGNORECASE)})
+	query.append({"Why KAC":re.compile(wordRegex,re.IGNORECASE)})
 	queries["$or"]=query
 	return queries
 
@@ -53,11 +55,11 @@ def query(year, interests=None, locationPref=None, word=None, university = None)
 	else:
 		universityRegex = ".*"+university+".*"
 
-	query = {"$and" : [{ "$or": [ { "Graduation": re.compile(gradRegex) }, 
-	{ "Graduation": re.compile(".*"+lasttwo+".*") } ] },
+	query = {"$and" : [{ "$or": [ { "Graduation": re.compile(gradRegex,re.IGNORECASE) }, 
+	{ "Graduation": re.compile(".*"+lasttwo+".*",re.IGNORECASE) } ] },
 	{"$or":listQuery(interests,"Interested Areas of Tech")},
-	{"Unviersity":re.compile(universityRegex)},
-	{"Location Preference":re.compile(locationPrefRegex)},
+	{"Unviersity":re.compile(universityRegex,re.IGNORECASE)},
+	{"Location Preference":re.compile(locationPrefRegex,re.IGNORECASE)},
 	textSearchQuery(word)]}
 	
 	print "QUERY"
@@ -73,7 +75,7 @@ def searchWithQuery(year, interests, locationPref, word, university):
 
 	print '-------------------CURSOR------------'
 	data = [JSONEncoder().encode(prof) for prof in doc]
-	print data
+	#print data
 	return data
 
 
