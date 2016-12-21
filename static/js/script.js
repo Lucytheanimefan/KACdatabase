@@ -157,8 +157,8 @@ function populateData(data) {
             } else if (key == "Name") {
                 nameInfo = "<div class='name'>" + data[i]["Name"]["lastname"] + ", " + data[i]["Name"]["firstname"] + "</div>";
             } else {
-                studentdata = studentdata + "<h5 class='title'>" +
-                    key + "</h5> " + data[i][key] + "<hr>";
+                studentdata = studentdata + "<h4 class='title'>" +
+                    key + "</h4> " + data[i][key] + "<hr>";
             }
         }
         studentdata = '<li><div class="collapsible-header">' + nameInfo +
