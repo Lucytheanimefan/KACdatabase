@@ -16,28 +16,26 @@ var interestMap = {
     "fintech": "Finance/ FinTech",
     "cyber_security": "Cyber Security",
     "AI": "Artificial Intelligence",
-    "robotics":"Robotics"
+    "robotics": "Robotics"
 }
 var checkBoxValues = [];
 
 $('#go').click(function() {
     $("#results").empty();
-    var locationPref="";
+    var locationPref = "";
     var university = "";
     var sortBy = $('#sortBy').val();
     var sortByYear = $('#sortByYear').val();
+    var name = $("#name").val();
     university = $("#university").val();
     locationPref = $("#sortByLocation").val();
-    if (sortByYear == null){
-        sortByYear="";
+    if (sortByYear == null) {
+        sortByYear = "";
     }
     var word = $("#search").val();
-    console.log("Search word: "+word);
     getCheckedBoxes();
-    console.log(checkBoxValues)
     spinner = new Spinner(opts).spin(target);
-    console.log(sortByYear);
-    var query = createQuery(sortBy, sortByYear, checkBoxValues, locationPref, word, university);
+    var query = createQuery(sortBy, sortByYear, checkBoxValues, locationPref, word, university, name);
     getpostdata(query);
 
     //console.log(checkBoxValues);
@@ -52,8 +50,8 @@ function getCheckedBoxes() {
     });
 }
 
-function createQuery(sortBy, year, interests, location, word, university) {
-    var query = { "sortBy": sortBy, "year": year, "interests": interests, "location":location, "word":word,"university":university };
+function createQuery(sortBy, year, interests, location, word, university, name) {
+    var query = { "sortBy": sortBy, "year": year, "interests": interests, "location": location, "word": word, "university": university, "name": name };
     return query;
 }
 
