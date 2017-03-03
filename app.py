@@ -1,6 +1,6 @@
 import os
 from flask import Flask
-from flask import render_template,jsonify, request
+from flask import Flask, flash, redirect, render_template, request, session, abort, jsonify
 import csv
 import sys
 import server
@@ -20,12 +20,20 @@ db = server.get_db()
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-
-@app.route("/")
-@app.route("/home")
-@app.route("/search")
+@app.route('/')
 def home():
-	return render_template('search.html')
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    else:
+        return render_template("search.html")
+ 
+@app.route('/login', methods=['POST'])
+def do_admin_login():
+    if request.form['password'] == 'password' and request.form['username'] == 'admin':
+        session['logged_in'] = True
+    else:
+        flash('wrong password!')
+    return home()
 
 
 @app.route('/search',methods=['POST','GET'])
@@ -65,5 +73,6 @@ def populate():
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+	app.secret_key = os.urandom(12)
+	port = int(os.environ.get("PORT", 5000))
+	app.run(host='0.0.0.0', port=port)
