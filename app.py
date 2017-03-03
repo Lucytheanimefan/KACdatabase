@@ -44,8 +44,8 @@ def do_admin_login():
 @app.route("/logout")
 def logout():
 	name = None
-    session['logged_in'] = False
-    return home()
+	session['logged_in'] = False
+	return home()
 
 @app.route("/search_page")
 def search_page():
