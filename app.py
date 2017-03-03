@@ -25,7 +25,7 @@ def home():
     if not session.get('logged_in'):
         return render_template('login.html')
     else:
-        return render_template("search.html")
+        return render_template("index.html")
  
 @app.route('/login', methods=['POST'])
 def do_admin_login():
@@ -35,6 +35,17 @@ def do_admin_login():
         flash('wrong password!')
     return home()
 
+@app.route("/logout")
+def logout():
+    session['logged_in'] = False
+    return home()
+
+@app.route("/search_page")
+def search_page():
+	if session.get('logged_in'):
+		return render_template("search.html")
+	else: 
+		return home()
 
 @app.route('/search',methods=['POST','GET'])
 def search():
