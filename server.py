@@ -1,7 +1,13 @@
 from pymongo import MongoClient
+#from boto.s3.connection import S3Connection
+
+from os import environ
+
+
+#s3 = S3Connection(os.environ['PROD_MONGODB'], os.environ['CLIENT_MONGODB'])
 
 def get_db():
-    client = MongoClient('mongodb://heroku_3xjl6js5:toopv781uldifdva37t71jgd2b@ds113668.mlab.com:13668/heroku_3xjl6js5')
-    db = client.heroku_3xjl6js5
+    client = MongoClient(environ.get('PROD_MONGODB'))
+    db = client[environ.get('CLIENT_MONGODB')]
     return db
 
