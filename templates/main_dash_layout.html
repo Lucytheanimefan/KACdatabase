@@ -34,8 +34,7 @@
             <!--logo start-->
             <a href="index.html" class="logo"><b>Rewriting the Code</b></a>
             <!--logo end-->
-            <div class="nav notify-row" id="top_menu">
-            </div>
+        
             <div class="top-menu">
                 <ul class="nav pull-right top-menu">
                     <li><a class="logout" href="/logout">Logout</a></li>
@@ -50,21 +49,24 @@
         <aside>
             <div id="sidebar" class="nav-collapse ">
                 <!-- sidebar menu start-->
-                <ul class="sidebar-menu" id="nav-accordion">
-                    <p class="centered">
-                        <a href="profile.html"><img src="/static/assets/img/ui-sam.jpg" class="img-circle" width="60"></a>
-                    </p>
-                    <h5 class="centered">Name here</h5>
+                <ul class="sidebar-menu" id="nav-accordion">      
+                    <h5 class="centered">{{ username }}</h5>
                     <li class="mt">
                         <a class="active" href="/">
                             <i class="fa fa-dashboard"></i>
                             <span>Dashboard</span>
                         </a>
                     </li>
-                    <li class="mt">
+                    <li class="sub-menu">
                         <a href="/search_page">
                             <i class="fa fa-desktop"></i>
                             <span>Search</span>
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="#">
+                            <i class="fa fa-cogs"></i>
+                            <span>Companies</span>
                         </a>
                     </li>
                 </ul>

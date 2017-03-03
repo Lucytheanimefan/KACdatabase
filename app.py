@@ -1,6 +1,6 @@
 import os
 from flask import Flask
-from flask import Flask, flash, redirect, render_template, request, session, abort, jsonify
+from flask import Flask, flash, redirect, render_template, request, session, abort, jsonify, make_response
 import csv
 import sys
 import server
@@ -25,7 +25,10 @@ def home():
     if not session.get('logged_in'):
         return render_template('login.html')
     else:
-        return render_template("index.html")
+    	#resp = make_response(render_template("index.html"))
+    	#resp.set_cookie('username', request.form['username'])
+    	#return resp
+        return render_template("index.html",username = request.form['username'])
  
 @app.route('/login', methods=['POST'])
 def do_admin_login():
