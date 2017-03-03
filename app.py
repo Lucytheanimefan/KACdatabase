@@ -20,6 +20,8 @@ db = server.get_db()
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
+name = None
+
 @app.route('/')
 def home():
     if not session.get('logged_in'):
@@ -28,10 +30,11 @@ def home():
     	#resp = make_response(render_template("index.html"))
     	#resp.set_cookie('username', request.form['username'])
     	#return resp
-        return render_template("index.html",username = request.form['username'])
+        return render_template("index.html",username = name)
  
 @app.route('/login', methods=['POST'])
 def do_admin_login():
+	name = request.form['username']
     if request.form['password'] == 'password' and request.form['username'] == 'admin':
         session['logged_in'] = True
     else:
@@ -40,6 +43,7 @@ def do_admin_login():
 
 @app.route("/logout")
 def logout():
+	name = None
     session['logged_in'] = False
     return home()
 
