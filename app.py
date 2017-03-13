@@ -41,6 +41,20 @@ def do_admin_login():
 		flash('wrong password!')
 	return home()
 
+@app.route('/create_account_pg')
+def create_account_pg():
+	return render_template("create_account.html")
+
+@app.route('/create_account', methods=['POST'])
+def create_account():
+	username = request.form['username']
+	password = request.form['password']
+	accountType = request.form['accountType']
+	db.users.insert({'username':username,'password':password,'accountType':accountType})
+	#write to database
+	return "Success"
+
+
 @app.route("/logout")
 def logout():
 	name = None
