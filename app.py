@@ -52,9 +52,10 @@ def create_account_pg():
 
 @app.route('/create_account', methods=['POST'])
 def create_account():
+	print request.form
 	username = request.form['username']
 	password = request.form['password']
-	db.users.insert({'username':username,'password':password,'accountType':accountType})
+	db.users.insert({'username':username,'password':password,'accountType':request.form['accountType']})
 	#write to database
 	return home()
 

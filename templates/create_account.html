@@ -4,11 +4,16 @@
         <form class="form-login" action="/create_account" method="POST">
             <h2 class="form-login-heading">Create an account</h2>
             <div class="login-wrap">
-                <input type="username" name="username" class="form-control" placeholder="username" autofocus>
+                <input type="username" name="username" class="form-control" placeholder="username" autofocus required>
                 <br>
-                <input type="password" name="password" class="form-control" placeholder="Password">
+                <input type="password" name="password" class="form-control" placeholder="Password" required>
                 <br>
-                <input type="accountType" name="accountType" class="form-control" placeholder="Account Type">
+                <select name="accountType" class="form-control" required>
+                    <option value="admin">admin</option>
+                    <option value="company">company</option>
+                    <option value="student">student</option>
+                </select>
+               
                 <button class="btn btn-theme btn-block" type="submit"><i class="fa fa-lock"></i>Create account</button>
                 <hr>
             </div>
