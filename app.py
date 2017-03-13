@@ -20,7 +20,6 @@ db = server.get_db()
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-name = None
 
 @app.route('/')
 def home():
@@ -30,18 +29,19 @@ def home():
     	#resp = make_response(render_template("index.html"))
     	#resp.set_cookie('username', request.form['username'])
     	#return resp
-        return render_template("index.html",username = name)
+        return render_template("index.html",username = session['name'], accountType = session['accountType'])
  
 @app.route('/login', methods=['POST'])
 def do_admin_login():
 	name = request.form['username']
+	session['name'] = name
 	password = request.form['password']
 	doc = db.users.find({'password':password, 'username':name})
-	print doc #figure out what this is
-	if len(doc)>1:
+	data = [JSONEncoder().encode(prof) for prof in doc]
+	data = eval(data[0])
+	if request.form['password'] == data['password'] and request.form['username'] == data['username']:
+		session['accountType'] = data['accountType']
 		session['logged_in'] = True
-	#if request.form['password'] == 'password' and request.form['username'] == 'admin':
-	#	session['logged_in'] = True
 	else:
 		flash('wrong password!')
 	return home()
@@ -54,7 +54,6 @@ def create_account_pg():
 def create_account():
 	username = request.form['username']
 	password = request.form['password']
-	accountType = request.form['accountType']
 	db.users.insert({'username':username,'password':password,'accountType':accountType})
 	#write to database
 	return home()
