@@ -35,8 +35,13 @@ def home():
 @app.route('/login', methods=['POST'])
 def do_admin_login():
 	name = request.form['username']
-	if request.form['password'] == 'password' and request.form['username'] == 'admin':
+	password = request.form['password']
+	doc = db.users.find({'password':password, 'username':name})
+	print doc #figure out what this is
+	if len(doc)>1:
 		session['logged_in'] = True
+	#if request.form['password'] == 'password' and request.form['username'] == 'admin':
+	#	session['logged_in'] = True
 	else:
 		flash('wrong password!')
 	return home()
