@@ -52,7 +52,7 @@ def create_account():
 	accountType = request.form['accountType']
 	db.users.insert({'username':username,'password':password,'accountType':accountType})
 	#write to database
-	return "Success"
+	return home()
 
 
 @app.route("/logout")
