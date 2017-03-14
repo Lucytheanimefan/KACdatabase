@@ -73,9 +73,14 @@ def searchWithQuery(year, interests, locationPref, word, university):
 	lasttwo = year[-2:]
 	doc = db.scholarprofiles.find(query(year, interests, locationPref, word, university))
 
-	print '-------------------CURSOR------------'
+	#print '-------------------CURSOR------------'
 	data = [JSONEncoder().encode(prof) for prof in doc]
 	#print data
+	
+	for i, dat in enumerate(data):
+		data[i] = eval(data[i])
+		data[i]["Name"]=data[i]["Name"]["lastname"]+", "+data[i]["Name"]["firstname"]
+		data[i].pop('_id', None)
 	return data
 
 

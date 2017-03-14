@@ -102,8 +102,6 @@ var opts = {
 var target = document.getElementById('results')
 
 function getpostdata(sortdata = {}) {
-    console.log("sortdata: ");
-    console.log(sortdata);
     $.ajax({
         type: 'POST',
         url: '/search',
@@ -111,27 +109,23 @@ function getpostdata(sortdata = {}) {
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         success: function(response) {
+            console.log(response);
             spinner.stop();
             console.log('ajax success');
             var data = response["result"];
-            var newdata = []
-            for (var i = 1; i < data.length; i++) {
-                newdata.push(JSON.parse(data[i]));
-            }
-            //sort the data alphabetically (for now)
-            sortByKey(newdata, "Name", "lastname");
-            console.log('new sorted data');
-            console.log(newdata);
-            populateData(newdata);
+            csvReadyData = Papa.unparse(data); //onvertToCSV(data);
+            console.log(csvReadyData);
+            sortByKey(data, "Name");
+            populateData(data);
 
         }
     });
 }
 
-function sortByKey(array, key, key2) {
+function sortByKey(array, key) {
     return array.sort(function(a, b) {
-        var x = a[key][key2];
-        var y = b[key][key2];
+        var x = a[key];
+        var y = b[key];
 
         if (typeof x == "string") {
             x = x.toLowerCase();
@@ -154,9 +148,9 @@ $("#downloadCSV").click(function() {
 
 function writeDataToCSV(csvContent = "") {
     var encodedUri = encodeURI(csvContent);
-    console.log(encodedUri);
+    //console.log(encodedUri);
     var link = document.createElement("a");
-    link.setAttribute("href", "data:text/csv" + encodedUri);
+    link.setAttribute("href", "data:text/csv;charset=utf-8," + encodedUri);
     link.setAttribute("download", "RTC_scholar_data.csv");
     document.body.appendChild(link); // Required for FF
     link.click();
@@ -171,12 +165,12 @@ function convertToCSV(objArray) {
         var line = '';
         for (var index in array[i]) {
             if (line != '') line += ',';
-            if (index == "name") {
+            /*if (index == "name") {
                 line += array[i][index]["firstname"]+'\r\n'+array[i][index]["lastname"]
-            } else {
-                var value = '\"' + array[i][index].toString() + '\"';
-                line += value;
-            }
+            } else {*/
+            var value = '\"' + array[i][index].toString() + '\"';
+            line += value;
+            //}
         }
 
         str += line + '\r\n';
@@ -187,7 +181,6 @@ function convertToCSV(objArray) {
 
 
 function populateData(data) {
-    csvReadyData = Papa.unparse(data);//onvertToCSV(data);
     console.log("Data length: " + data.length);
     var nameInfo = "";
     var totalData = "";
@@ -197,7 +190,7 @@ function populateData(data) {
             if (key == "_id") {
                 //do nothing
             } else if (key == "Name") {
-                nameInfo = "<div class='name'>" + data[i]["Name"]["lastname"] + ", " + data[i]["Name"]["firstname"] + "</div>";
+                nameInfo = "<div class='name'>" + data[i]["Name"] + "</div>";
             } else {
                 studentdata = studentdata + "<h4 class='title'>" +
                     key + "</h4> " + data[i][key] + "<hr>";
