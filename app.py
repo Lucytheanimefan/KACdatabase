@@ -55,6 +55,7 @@ def create_account():
 	print request.form
 	username = request.form['username']
 	password = request.form['password']
+	print request.form['accountType']
 	db.users.insert({'username':username,'password':password,'accountType':request.form['accountType']})
 	#write to database
 	return home()
@@ -69,7 +70,7 @@ def logout():
 @app.route("/search_page")
 def search_page():
 	if session.get('logged_in'):
-		return render_template("search.html")
+		return render_template("search.html", accountType = session['accountType'])
 	else: 
 		return home()
 

@@ -22,26 +22,31 @@ var interestMap = {
 }
 var checkBoxValues = [];
 
-$('#go').click(function() {
+function submitQuery(accountType = null) {
     $("#results").empty();
-    var locationPref = "";
-    var university = "";
-    var sortBy = $('#sortBy').val();
-    var sortByYear = $('#sortByYear').val();
+    var university = $("#university").val();
     var name = $("#name").val();
-    university = $("#university").val();
-    locationPref = $("#sortByLocation").val();
+    var locationPref = "";
+    var sortBy = "";
+    var sortByYear = "";
+    var word  = "";
+    if (accountType == "admin" || accountType == "company") {
+        locationPref = $("#sortByLocation").val();
+        sortBy = $('#sortBy').val();
+        sortByYear = $('#sortByYear').val();
+        word = $("#search").val();
+        getCheckedBoxes();
+    }
     if (sortByYear == null) {
         sortByYear = "";
     }
-    var word = $("#search").val();
-    getCheckedBoxes();
+
     spinner = new Spinner(opts).spin(target);
     var query = createQuery(sortBy, sortByYear, checkBoxValues, locationPref, word, university, name);
     getpostdata(query);
 
     //console.log(checkBoxValues);
-})
+}
 
 function getCheckedBoxes() {
     checkBoxValues = [];
@@ -114,7 +119,7 @@ function getpostdata(sortdata = {}) {
             console.log('ajax success');
             var data = response["result"];
             csvReadyData = Papa.unparse(data); //onvertToCSV(data);
-            console.log(csvReadyData);
+            //console.log(csvReadyData);
             sortByKey(data, "Name");
             populateData(data);
 
