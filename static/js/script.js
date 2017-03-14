@@ -1,3 +1,5 @@
+var csvReadyData = "";
+
 //get user input
 
 $(document).ready(function() {
@@ -142,8 +144,50 @@ function sortByKey(array, key, key2) {
     });
 }
 
+$("#downloadCSV").click(function() {
+    if (csvReadyData.length < 1) {
+        alert("No data to write");
+    } else {
+        writeDataToCSV(csvReadyData);
+    }
+})
+
+function writeDataToCSV(csvContent = "") {
+    var encodedUri = encodeURI(csvContent);
+    console.log(encodedUri);
+    var link = document.createElement("a");
+    link.setAttribute("href", "data:text/csv" + encodedUri);
+    link.setAttribute("download", "RTC_scholar_data.csv");
+    document.body.appendChild(link); // Required for FF
+    link.click();
+
+}
+
+function convertToCSV(objArray) {
+    var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+    var str = '';
+
+    for (var i = 0; i < array.length; i++) {
+        var line = '';
+        for (var index in array[i]) {
+            if (line != '') line += ',';
+            if (index == "name") {
+                line += array[i][index]["firstname"]+'\r\n'+array[i][index]["lastname"]
+            } else {
+                var value = '\"' + array[i][index].toString() + '\"';
+                line += value;
+            }
+        }
+
+        str += line + '\r\n';
+    }
+
+    return str;
+}
+
 
 function populateData(data) {
+    csvReadyData = Papa.unparse(data);//onvertToCSV(data);
     console.log("Data length: " + data.length);
     var nameInfo = "";
     var totalData = "";
