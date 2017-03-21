@@ -81,6 +81,11 @@ def search():
 	data = searchWithQuery(request.json["year"], request.json["interests"], request.json["location"], request.json["word"],request.json["university"])
 	return jsonify(result = data)
 
+@app.route("/updateProfile", methods=['POST'])
+def update():
+	key = request.json["key"]
+	new_val = request.json["value"]
+	fellow_id = request.json["id"]
 '''
 @app.route('/populatedb')
 def populate():

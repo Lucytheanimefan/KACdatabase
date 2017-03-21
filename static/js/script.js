@@ -4,7 +4,7 @@ var csvReadyData = "";
 
 $(document).ready(function() {
     $('select').material_select();
-    $("#downloadCSV").prop("disabled",true);
+    $("#downloadCSV").prop("disabled", true);
 });
 
 var interestMap = {
@@ -30,7 +30,7 @@ function submitQuery(accountType = null) {
     var locationPref = "";
     var sortBy = "";
     var sortByYear = "";
-    var word  = "";
+    var word = "";
     if (accountType == "admin" || accountType == "company") {
         locationPref = $("#sortByLocation").val();
         sortBy = $('#sortBy').val();
@@ -45,7 +45,7 @@ function submitQuery(accountType = null) {
     spinner = new Spinner(opts).spin(target);
     var query = createQuery(sortBy, sortByYear, checkBoxValues, locationPref, word, university, name);
     getpostdata(query);
-    $("#downloadCSV").prop("disabled",false);
+    $("#downloadCSV").prop("disabled", false);
 
     //console.log(checkBoxValues);
 }
@@ -172,18 +172,40 @@ function convertToCSV(objArray) {
         var line = '';
         for (var index in array[i]) {
             if (line != '') line += ',';
-            /*if (index == "name") {
-                line += array[i][index]["firstname"]+'\r\n'+array[i][index]["lastname"]
-            } else {*/
             var value = '\"' + array[i][index].toString() + '\"';
             line += value;
-            //}
         }
 
         str += line + '\r\n';
     }
 
     return str;
+}
+
+function editSection(id, editSectionKey, newValue) {
+    console.log(id + ": " + editSectionKey + ": " + newValue);
+    var data = { "id": id, "key": editSectionKey, "value": newValue };
+    writeToDatabase(data)
+
+}
+
+function editProfile(id, editSection, realEditSection = null) {
+    $("#" + id + " ." + editSection).empty();
+    $("#" + id + " ." + editSection).append('<textarea class="text-box materialize-textarea ' + editSection + '"></textarea>' + '<a onclick = "editSection(\'' + id + '\',\'' + realEditSection + '\',$(this).prev().val())" class="waves-effect waves-light btn">Submit</a>');
+
+}
+
+function writeToDatabase(data) {
+    $.ajax({
+        type: 'POST',
+        url: '/updateProfile',
+        data: JSON.stringify(data),
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: function(response) {
+            console.log(response);
+        }
+    });
 }
 
 
@@ -194,17 +216,15 @@ function populateData(data) {
     for (var i = 0; i < data.length; i++) {
         var studentdata = "<div class='profile'>";
         for (var key in data[i]) {
-            if (key == "_id") {
-                //do nothing
-            } else if (key == "Name") {
+            if (key == "_id") {} else if (key == "Name") {
                 nameInfo = "<div class='name'>" + data[i]["Name"] + "</div>";
             } else {
-                studentdata = studentdata + "<h4 class='title'>" +
-                    key + "</h4> " + data[i][key] + "<hr>";
+                studentdata = studentdata + "<div><h4 class='title'>" +
+                    key + ' <i onclick="editProfile(\'' + data[i]["_id"] + '\',\'' + key.replace(/\s+/g, '-').toLowerCase() + '\', \'' + key + '\')" class="fa fa-pencil-square-o" aria-hidden="trues"></i>' + "</h4><div class='data " + key.replace(/\s+/g, '-').toLowerCase() + "' >" + data[i][key] + "</div><hr></div>";
             }
         }
         studentdata = '<li><div class="collapsible-header">' + nameInfo +
-            "</div><div class='collapsible-body'>" +
+            "</div><div id = '" + data[i]["_id"] + "' class='collapsible-body'>" +
             studentdata + "</div></li>";
 
         totalData = totalData + studentdata;
