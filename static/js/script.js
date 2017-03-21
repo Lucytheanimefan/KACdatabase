@@ -31,7 +31,7 @@ function submitQuery(accountType = null) {
     var sortBy = "";
     var sortByYear = "";
     var word = "";
-    accountType = accountType;
+    window["accountType"] = accountType;
     if (accountType == "admin" || accountType == "company") {
         locationPref = $("#sortByLocation").val();
         sortBy = $('#sortBy').val();
