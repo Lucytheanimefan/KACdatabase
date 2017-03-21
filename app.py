@@ -10,6 +10,7 @@ import sys
 import json
 from JSONEncoder import JSONEncoder
 from queries import *
+from bson.objectid import ObjectId
 
 app = Flask(__name__)
 
@@ -86,6 +87,8 @@ def update():
 	key = request.json["key"]
 	new_val = request.json["value"]
 	fellow_id = request.json["id"]
+	db.scholarprofiles.update({'_id': ObjectId(fellow_id)}, {"$set":{key:new_val}}, upsert=True)
+	return "Updated profile"
 '''
 @app.route('/populatedb')
 def populate():
