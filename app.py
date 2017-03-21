@@ -91,7 +91,7 @@ def update():
 		db.scholarprofiles.update({'_id': ObjectId(fellow_id)}, {"$set":{key:new_val}}, upsert=True)
 		return "Updated profile"
 	else:
-		return "Can't update"
+		return "No permission to update"
 '''
 @app.route('/populatedb')
 def populate():

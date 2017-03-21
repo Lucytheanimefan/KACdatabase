@@ -1,5 +1,5 @@
 var csvReadyData = "";
-
+var accountType;
 //get user input
 
 $(document).ready(function() {
@@ -31,6 +31,7 @@ function submitQuery(accountType = null) {
     var sortBy = "";
     var sortByYear = "";
     var word = "";
+    accountType = accountType;
     if (accountType == "admin" || accountType == "company") {
         locationPref = $("#sortByLocation").val();
         sortBy = $('#sortBy').val();
@@ -219,8 +220,13 @@ function populateData(data) {
             if (key == "_id") {} else if (key == "Name") {
                 nameInfo = "<div class='name'>" + data[i]["Name"] + "</div>";
             } else {
-                studentdata = studentdata + "<div><h4 class='title'>" +
-                    key + ' <i onclick="editProfile(\'' + data[i]["_id"] + '\',\'' + key.replace(/\s+/g, '-').toLowerCase() + '\', \'' + key + '\')" class="fa fa-pencil-square-o" aria-hidden="trues"></i>' + "</h4><div class='data " + key.replace(/\s+/g, '-').toLowerCase() + "' >" + data[i][key] + "</div><hr></div>";
+                if (accountType == "admin") {
+                    studentdata = studentdata + "<div><h4 class='title'>" +
+                        key + ' <i onclick="editProfile(\'' + data[i]["_id"] + '\',\'' + key.replace(/\s+/g, '-').toLowerCase() + '\', \'' + key + '\')" class="fa fa-pencil-square-o" aria-hidden="trues"></i>' + "</h4><div class='data " + key.replace(/\s+/g, '-').toLowerCase() + "' >" + data[i][key] + "</div><hr></div>";
+                } else {
+                    studentdata = studentdata + "<div><h4 class='title'>" +
+                        key + "</h4><div class='data " + key.replace(/\s+/g, '-').toLowerCase() + "' >" + data[i][key] + "</div><hr></div>";
+                }
             }
         }
         studentdata = '<li><div class="collapsible-header">' + nameInfo +
