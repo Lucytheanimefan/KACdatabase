@@ -37,7 +37,7 @@ function submitQuery(accountType = null) {
         sortBy = $('#sortBy').val();
         sortByYear = $('#sortByYear').val();
         word = $("#search").val();
-        getCheckedBoxes();
+        var checkBoxValues = getCheckedBoxes(".interest");
     }
     if (sortByYear == null) {
         sortByYear = "";
@@ -51,13 +51,18 @@ function submitQuery(accountType = null) {
     //console.log(checkBoxValues);
 }
 
-function getCheckedBoxes() {
-    checkBoxValues = [];
-    $(".check").each(function() {
+function getCheckedBoxes(className) {
+    var checkBoxValues = [];
+    $(className).each(function() {
         if ($(this).prop('checked')) {
-            checkBoxValues.push(interestMap[$(this).val()]);
+            if ($(this).val() in interestMap) {
+                checkBoxValues.push(interestMap[$(this).val()]);
+            } else {
+                checkBoxValues.push($(this).val());
+            }
         }
     });
+    return checkBoxValues;
 }
 
 function createQuery(sortBy, year, interests, location, word, university, name) {
@@ -211,7 +216,8 @@ function writeToDatabase(data) {
 
 
 function populateData(data) {
-    console.log("Data length: " + data.length);
+    var toRet = getCheckedBoxes(".return");
+    console.log(toRet);
     var nameInfo = "";
     var totalData = "";
     for (var i = 0; i < data.length; i++) {
@@ -219,7 +225,7 @@ function populateData(data) {
         for (var key in data[i]) {
             if (key == "_id") {} else if (key == "Name") {
                 nameInfo = "<div class='name'>" + data[i]["Name"] + "</div>";
-            } else {
+            } else if (toRet.includes("applicant")){
                 if (accountType == "admin") {
                     studentdata = studentdata + "<div><h4 class='title'>" +
                         key + ' <i onclick="editProfile(\'' + data[i]["_id"] + '\',\'' + key.replace(/\s+/g, '-').toLowerCase() + '\', \'' + key + '\')" class="fa fa-pencil-square-o" aria-hidden="trues"></i>' + "</h4><div class='data " + key.replace(/\s+/g, '-').toLowerCase() + "' >" + data[i][key] + "</div><hr></div>";

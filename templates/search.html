@@ -38,66 +38,80 @@
     </div>
     {% if accountType == "admin" %}
     <div class="checkboxes row">
-        <h5>Interested Areas of Tech</h5>
         <div class='col s3'>
+            <h5>Interested Areas of Tech</h5>
             <p>
-                <input class="check" type="checkbox" value="frontend" id="frontend" />
+                <input class="check interest" type="checkbox" value="frontend" id="frontend" />
                 <label for="frontend">Front-End</label>
             </p>
             <p>
-                <input class="check" type="checkbox" value="backend" id="backend" />
+                <input class="check interest" type="checkbox" value="backend" id="backend" />
                 <label for="backend">Back-End</label>
             </p>
             <p>
-                <input class="check" type="checkbox" value="mobile" class="filled-in" id="mobile" />
+                <input class="check interest" type="checkbox" value="mobile" class="filled-in" id="mobile" />
                 <label for="mobile">Mobile</label>
             </p>
             <p>
-                <input class="check" type="checkbox" value="database" id="database" />
+                <input class="check interest" type="checkbox" value="database" id="database" />
                 <label for="database">Database</label>
             </p>
             <p>
-                <input class="check" type="checkbox" value="testing_qa" id="testing_qa" />
+                <input class="check interest" type="checkbox" value="testing_qa" id="testing_qa" />
                 <label for="testing_qa">Testing/QA</label>
             </p>
             <p>
-                <input class="check" type="checkbox" value="ui_ux" id="ui_ux" />
+                <input class="check interest" type="checkbox" value="ui_ux" id="ui_ux" />
                 <label for="ui_ux">UI/UX</label>
             </p>
         </div>
         <div class='col s3'>
             <p>
-                <input class="check" type="checkbox" value="3dprinting" id="3dprinting" />
+                <input class="check interest" type="checkbox" value="3dprinting" id="3dprinting" />
                 <label for="3dprinting">3D Printing</label>
             </p>
             <p>
-                <input class="check" type="checkbox" value="hardware" id="hardware" />
+                <input class="check interest" type="checkbox" value="hardware" id="hardware" />
                 <label for="hardware">Hardware</label>
             </p>
             <p>
-                <input class="check" type="checkbox" value="fintech" id="fintech" />
+                <input class="check interest" type="checkbox" value="fintech" id="fintech" />
                 <label for="fintech">Fintech</label>
             </p>
             <p>
-                <input class="check" type="checkbox" value="cyber_security" id="cyber_security" />
+                <input class="check interest" type="checkbox" value="cyber_security" id="cyber_security" />
                 <label for="cyber_security">Cyber Security</label>
             </p>
             <p>
-                <input class="check" type="checkbox" value="AI" id="AI" />
+                <input class="check interest" type="checkbox" value="AI" id="AI" />
                 <label for="AI">Artificial Intelligence</label>
             </p>
             <p>
-                <input class="check" type="checkbox" value="robotics" id="robotics" />
+                <input class="check interest" type="checkbox" value="robotics" id="robotics" />
                 <label for="robotics">Robotics</label>
             </p>
         </div>
+        <div class='col s3'>
+            <h5>Return values</h5>
+            <div class="return_vals">
+                <p>
+                    <input class="check return" type="checkbox" value="applicant" id="applicant" />
+                    <label for="applicant">Applicant Information</label>
+                </p>
+                <p>
+                    <input class="check return" type="checkbox" value="internship" id="internship" />
+                    <label for="internship">Internship</label>
+                </p>
+            </div>
+        </div>
     </div>
+    <div class="row"></div>
     {% endif %}
     <br>
 </form>
 <div class="row">
     <div class="col s3">
-        <button class="btn waves-effect waves-light" onclick = "submitQuery('{{ accountType }}')" id="go">Go
+        <button class="btn waves-effect waves-light" onclick="submitQuery('{{ accountType }}')" id="go">Go
             <i class="material-icons right"></i>
         </button>
     </div>
