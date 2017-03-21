@@ -4,6 +4,7 @@ var csvReadyData = "";
 
 $(document).ready(function() {
     $('select').material_select();
+    $("#downloadCSV").prop("disabled",true);
 });
 
 var interestMap = {
@@ -44,6 +45,7 @@ function submitQuery(accountType = null) {
     spinner = new Spinner(opts).spin(target);
     var query = createQuery(sortBy, sortByYear, checkBoxValues, locationPref, word, university, name);
     getpostdata(query);
+    $("#downloadCSV").prop("disabled",false);
 
     //console.log(checkBoxValues);
 }
