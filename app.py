@@ -84,11 +84,14 @@ def search():
 
 @app.route("/updateProfile", methods=['POST'])
 def update():
-	key = request.json["key"]
-	new_val = request.json["value"]
-	fellow_id = request.json["id"]
-	db.scholarprofiles.update({'_id': ObjectId(fellow_id)}, {"$set":{key:new_val}}, upsert=True)
-	return "Updated profile"
+	if session['accountType']=="admin":
+		key = request.json["key"]
+		new_val = request.json["value"]
+		fellow_id = request.json["id"]
+		db.scholarprofiles.update({'_id': ObjectId(fellow_id)}, {"$set":{key:new_val}}, upsert=True)
+		return "Updated profile"
+	else:
+		return "Can't update"
 '''
 @app.route('/populatedb')
 def populate():
