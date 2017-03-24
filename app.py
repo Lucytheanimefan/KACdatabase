@@ -25,6 +25,7 @@ sys.setdefaultencoding('utf-8')
 @app.route('/')
 def home():
     if not session.get('logged_in'):
+    	#update_database()
         return render_template('login.html')
     else:
     	#resp = make_response(render_template("index.html"))
@@ -121,7 +122,8 @@ def populate():
 '''
 
 def update_database():
-	db.testprofiles.update({}, {"$set":{"Internship":"some internsihp"}}, True, True)
+	print "Updated database"
+	db.scholarprofiles.update_many({}, {"$set":{"Internship":"A company"}}, True, True)
 
 
 if __name__ == "__main__":
