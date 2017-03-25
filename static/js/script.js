@@ -225,13 +225,21 @@ function populateData(data) {
         for (var key in data[i]) {
             if (key == "_id") {} else if (key == "Name") {
                 nameInfo = "<div class='name'>" + data[i]["Name"] + "</div>";
-            } else if (toRet.includes("applicant")){
+            } else if (toRet.includes("applicant")) {
                 if (accountType == "admin") {
                     studentdata = studentdata + "<div><h4 class='title'>" +
                         key + ' <i onclick="editProfile(\'' + data[i]["_id"] + '\',\'' + key.replace(/\s+/g, '-').toLowerCase() + '\', \'' + key + '\')" class="fa fa-pencil-square-o" aria-hidden="trues"></i>' + "</h4><div class='data " + key.replace(/\s+/g, '-').toLowerCase() + "' >" + data[i][key] + "</div><hr></div>";
                 } else {
                     studentdata = studentdata + "<div><h4 class='title'>" +
                         key + "</h4><div class='data " + key.replace(/\s+/g, '-').toLowerCase() + "' >" + data[i][key] + "</div><hr></div>";
+                }
+            } else if (toRet.includes("internship")) {
+                if (key == "Internship") {
+                    console.log("INTERNSHP!")
+                    var internInfo = data[i][key]["Company"] + ", " + data[i][key]["Location"];
+                    console.log("intern info: " + internInfo);
+                    studentdata = studentdata + "<div><h4 class='title'>" +
+                        key + "</h4><div class='data " + key.replace(/\s+/g, '-').toLowerCase() + "' >" + internInfo + "</div><hr></div>";
                 }
             }
         }
